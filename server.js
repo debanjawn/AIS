@@ -22,7 +22,32 @@ app.get('/loginPage', (req, res) => {
 
 app.post('/loginPage', (req, res) => {
 
+
+    console.log(req.body.username);
+
+    console.log(req.body.password);
+
+
+
 });
+
+
+
+
+
+app.post('/loginPage', (req, res) => { //Route that handles signup logic
+
+    console.log(req.body.name);
+
+    console.log(req.body.username);
+
+    console.log(req.body.password);
+
+});
+
+
+
+
 
 app.get('/test', (req, res) => {
     var request = require('request');
