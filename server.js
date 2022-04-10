@@ -21,15 +21,42 @@ app.get('/loginPage', (req, res) => {
 });
 
 app.post('/loginPage', (req, res) => {
-
-
+    console.log(req.body.name);
     console.log(req.body.username);
-
     console.log(req.body.password);
+});
 
+app.get('/createbill', (req, res) => {
+    res.sendFile(path.join(__dirname, '/views/createBill.html'));
+});
 
+app.post('/createbill', (req, res) => {
+    console.log(req.body.name);
+
+    var request = require('request');
+    var options = {
+        'method': 'POST',
+        'url': 'https://sandbox-quickbooks.api.intuit.com/v3/company/4620816365217166250/query',
+        'headers': {
+            'User-Agent': '{{UserAgent}}',
+            'Accept': 'application/json',
+            'Content-Type': 'application/text',
+            'Authorization': 'Bearer eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0..b1O-XDb6lrYUDUsgLq0JcQ.Mj0nI-vc9VcHAyWXZCGgMZaOE-vRm0G4Bs5RJx8ZIdqjSiFs0T2Ph4crwtgHwGGGmcpBDXfTr2Pj_fxwzTpu_L3WsbX-bl_65LuY0t8aismt6KJhoaj2b1Gk_m5X-yDIe6oSh8wK3XPKcPG5s0Z0vff1DOKpCvSERVyCxRqN1l71zcCeDVfEr0dDr_HwwqTQLkURTW5YfSRag44de2-PGiqZrNgRM4jNRJcgUj1HZBqoDb_siGbfTUHB1XJg7n6TaZcY79W8-BYIWZtX6XI6gKN7P9Gkb_IQLFE-i9tP2WTUbrbwapgLBEImlrXWkjWypu8q9QY0CBbGnMeRFRyPaAevhvzdY31MgvyE6JimueQGUNhx-eXy31Ues6cxCDnmYXmtZNtvuVe6Ya8yfOfiBX0MUiff7b0Bkdr5h--_I7cMVuW_FKvVyeZ38SKBtSg6S55yZFfldYHhGkBXjWs5rFCTCQgUR8-8RARPn5l7YPM8QFOaEPC6zCCzte5k8H0FP8qBqC9_aurdDEEd5bdvdje1WVMdGrfhsRvRs5Rac8z1Czh0WyuXc68tJlHUpp8uZkvY7Hzka9wTt-PsPu5CMUJBWG8AqeIxb4GXlGOm1eiFUeoROz6gOgMiau2bVs6DZc1iOferVxLTsIucZ1oEImnWVnljTngoaiCFQRQRZ1rJkFXW5Ovl5HlGLfbeYsaiFLFJWeiTMNTkbHsqJZFIYQ2PVUaAP8c6FnicMUVtY4lw-lOkYlgNT5ub5IqgB7V0.QxYWdSQsoqWhVDxgNmylqg'
+        },
+
+        body: 'select * from vendor where DisplayName = \'' + req.body.name + '\''
+
+    };
+    request(options, function(error, response) {
+        if (error) throw new Error(error);
+        console.log(response.body);
+        var object = JSON.parse(response.body);
+        console.log(object.QueryResponse.Vendor[0].Id);
+        res.send(response.body);
+    });
 
 });
+
 
 
 
