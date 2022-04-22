@@ -56,6 +56,45 @@ app.post('/createbill', (req, res) => {
     });
 
 });
+app.get('/vendorname', (req, res) => {
+    console.log(req.body.name);
+
+    var request = require('request');
+    var options = {
+        'method': 'POST',
+        'url': 'https://sandbox-quickbooks.api.intuit.com/v3/company/4620816365217166250/query',
+        'headers': {
+            'User-Agent': '{{UserAgent}}',
+            'Accept': 'application/json',
+            'Content-Type': 'application/text',
+            'Authorization': 'Bearer eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0..aGbDUW49D1rBbMrKmsOMIg.qx-BoNFzf710PjGErMLv5c1InTJvaThWpR_Jmd5_zLQoswS3OlioKt6gqTCaGrdKdZ-lBLNtu2b2-YuR1GqWl6F6Td34VUDOA6l-dyxAidUkvovlEL2aVA-pKAOCZs-FfyHDk2oSim6jBCt4AeFvlH55aJbFiqCruluULmhfqpoiLZeKF4U-z0WlHEWxEZr-TKwITEphI72y7wPBtvtuhDz_SJBfV3JQU2WjQoJzgLB2fH2wR9RrfEdG8WxRzHqZ6d-ewPmgaWWBGHCn9V5oQMERWuLodAO2z5htsUd6Sy-LaUEyODoNt8qDs4Xs18SbzOBMgiJKI9M9OtzLja-n_TlDeAOBxVHNX5__V_jtbbiluUKfAr6ngnuS1lLblRE7kmgsj-2RgOQBdb4qItt2EaPFIPTeFtob55k3c6OzdswLnOz_sxDEsVJoagtbqylIgW0yjRTEKdrvIPyWghruH0XjSutc1l6dd49oPkpLw20dTU7irIea916p93ETDUhvQfABfUuLy9tUdxQ_L1e6J74ZGk7__-fd5Plogs1wrqBMxnVDEzke-CPUguiSyO7q8sg80Kx_v8NWc3-JZfsUSY7lu6Ox7QLjrppbmP4w8z_126DFKMTBWZDbvhoNLSCayFnH-pU8nKIKYcxTLQZH7QndFYo4zVerG3p-tSMH7YmvJFnuE7Gczr_ZYBd6NfzQPEq4MgXnO8j_Z6TSgMSXVBwrPsWq3FQl4YmUIj4GLU5AKHLFL3OsBsE6yci4e5N_.8e_ii-7LB3Rk0SBT8RN5Mw'
+        },
+        body: 'select DisplayName from vendor '
+
+    };
+    request(options, function(error, response) {
+            if (error) throw new Error(error);
+            console.log(response.body);
+            var object = JSON.parse(response.body);
+            console.log(object.QueryResponse.Vendor);
+            var arrayName = new Array();
+            for (let i = 0; i < object.QueryResponse.Vendor.length; i++) {
+                arrayName.push(object.QueryResponse.Vendor[i].DisplayName)
+                    //res.send(object.QueryResponse.Vendor.DisplayName);
+            }
+            let text = '{ "info" : [' +
+                '{ "vendorName":"John" , "vendorId":"Doe" },' +
+                '{ "vendorName":"Anna" , "vendorId":"Smith" },' +
+                '{ "vendorName":"Peter" , "vendorId":"Jones" } ]}';
+        }
+
+        const obj = JSON.parse(text);
+
+        res.send(arrayName) //send new array in place of "object.QueryResponse.Vendor"
+
+    });
+
+});
 
 
 
