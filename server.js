@@ -34,7 +34,7 @@ app.post('/loginPage', (req, res) => {
 app.get('/createbill', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/createBill.html'));
 });
-// used for testing
+// used for testing, first test of using a webpage to get info from sandbox
 app.post('/createbill', (req, res) => {
     console.log(req.body.name);
 
@@ -52,6 +52,8 @@ app.post('/createbill', (req, res) => {
         body: 'select * from vendor where DisplayName = \'' + req.body.name + '\''
 
     };
+
+    //parse vendor info
     request(options, function(error, response) {
         if (error) throw new Error(error);
         console.log(response.body);
@@ -61,6 +63,8 @@ app.post('/createbill', (req, res) => {
     });
 
 });
+
+//one of the most important lines
 app.get('/vendorname', (req, res) => {
     console.log(req.body.name);
 
@@ -72,11 +76,13 @@ app.get('/vendorname', (req, res) => {
             'User-Agent': '{{UserAgent}}',
             'Accept': 'application/json',
             'Content-Type': 'application/text',
+            // this auth key needs to change every few hours
             'Authorization': 'Bearer eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0..QPDmJZvcPs3mooX0h67m5Q.daiTqsnAiAh6nZMXhwD8Hs7IlEH2UFIA2tGGoxzFsQO8V5dbT49_E2wS4Mvf0Rk-lHv7aqxY40bxBAPLAaHMH_jeLBup6JTLAsax_BGR4Sbq7qK-9pXNilc5gx_mlGvIa1U1hP5Jyr7j62G8dfTQ6gEGFN1FdRYpMKgS9Wi0g1BeQTiFRmM8R7EDRAcLr7W7ARh8LSbnSuu-K-avaH260D5m2c6ycSlJA66JxPzNv9jfTTEa7jW_NFgdavxIma6uAfeXeQBj464Mac5gNMfLq5EPyzxc0tp8HzkPkannR8cV2VnaXNXuEwYYDPJDdUpBCC0kbKLlkmIdIEZiTcuFJz28izcOL4KlRCvECiBL771POrFRAzXj8PG6JO9ex_kLLEJdxWAtqIlFV_blD1RhOukVrVC9OVOei4VRggr4pYyP8uoMTXCw_-IuUW8JDFUF3J5wQHpSLrcX2UHtc0gnoCaOVwt24JVkqM8kM9qWDmxrnQnPxHErbmcYAr1Yzh6q_70DZ9_R26KWF7FM1Pd8Qt8bslzU6TWvkSCWA8jz4mPz6uSUnGdeyEFSj8a8QUvFjhlvRKQlsferwbm6BGXeQNDk8bFLCaWHrCj6LdqhUmMq3S-joLsJ4taMZnpuStnpPop1oONMUFEzmaIo6wN4mc3SETynzw_NI9ezSc-OL1aQQpgwXyZoUUvKyQh9zBws7SMYVGMxgfNBAR8C-WNeqwi6UdNoVVc2qFY1o9n3-KzWot8QLnPpV-tWb_v6lUri.FVC8Wy3iaUedtHOBWH_eIA'
         },
         body: 'select DisplayName from vendor '
 
     };
+    //making array for the (for loop)
     request(options, function(error, response) {
         if (error) throw new Error(error);
         console.log(response.body);
@@ -86,7 +92,7 @@ app.get('/vendorname', (req, res) => {
         var arrayName = new Array();
         var data = { vendors: [] } // initially empty
 
-
+        //loop that pushes info into array
         for (let i = 0; i < object.QueryResponse.Vendor.length; i++) {
             //arrayName.push(object.QueryResponse.Vendor[i].DisplayName
             //arrayName.push(object.QueryResponse.Vendor[i].ID)
@@ -111,7 +117,7 @@ app.get('/vendorname', (req, res) => {
 
 
 
-
+//used for testing
 app.post('/loginPage', (req, res) => { //Route that handles signup logic
 
     console.log(req.body.name);
@@ -125,7 +131,7 @@ app.post('/loginPage', (req, res) => { //Route that handles signup logic
 
 
 
-
+//used for primary test of sandbox
 app.get('/test', (req, res) => {
     var request = require('request');
     var options = {
