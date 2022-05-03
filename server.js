@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//this is for the submit page, used for testing
 app.post('/submit', (req, res) => {
     console.log({
         name: req.body.name,
@@ -12,24 +13,28 @@ app.post('/submit', (req, res) => {
     res.send('Thanks for your message!');
 });
 
+//generic code that came with the app
 app.get('/', (req, res) => {
     res.send('Hello from App Engine!');
 });
 
+//testing login page that connected to html
 app.get('/loginPage', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/form.html'));
 });
 
+// post part of the testing login page
 app.post('/loginPage', (req, res) => {
     console.log(req.body.name);
     console.log(req.body.username);
     console.log(req.body.password);
 });
 
+// used for testing, retrieve html file
 app.get('/createbill', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/createBill.html'));
 });
-
+// used for testing
 app.post('/createbill', (req, res) => {
     console.log(req.body.name);
 
@@ -41,7 +46,7 @@ app.post('/createbill', (req, res) => {
             'User-Agent': '{{UserAgent}}',
             'Accept': 'application/json',
             'Content-Type': 'application/text',
-            'Authorization': 'Bearer eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0..b1O-XDb6lrYUDUsgLq0JcQ.Mj0nI-vc9VcHAyWXZCGgMZaOE-vRm0G4Bs5RJx8ZIdqjSiFs0T2Ph4crwtgHwGGGmcpBDXfTr2Pj_fxwzTpu_L3WsbX-bl_65LuY0t8aismt6KJhoaj2b1Gk_m5X-yDIe6oSh8wK3XPKcPG5s0Z0vff1DOKpCvSERVyCxRqN1l71zcCeDVfEr0dDr_HwwqTQLkURTW5YfSRag44de2-PGiqZrNgRM4jNRJcgUj1HZBqoDb_siGbfTUHB1XJg7n6TaZcY79W8-BYIWZtX6XI6gKN7P9Gkb_IQLFE-i9tP2WTUbrbwapgLBEImlrXWkjWypu8q9QY0CBbGnMeRFRyPaAevhvzdY31MgvyE6JimueQGUNhx-eXy31Ues6cxCDnmYXmtZNtvuVe6Ya8yfOfiBX0MUiff7b0Bkdr5h--_I7cMVuW_FKvVyeZ38SKBtSg6S55yZFfldYHhGkBXjWs5rFCTCQgUR8-8RARPn5l7YPM8QFOaEPC6zCCzte5k8H0FP8qBqC9_aurdDEEd5bdvdje1WVMdGrfhsRvRs5Rac8z1Czh0WyuXc68tJlHUpp8uZkvY7Hzka9wTt-PsPu5CMUJBWG8AqeIxb4GXlGOm1eiFUeoROz6gOgMiau2bVs6DZc1iOferVxLTsIucZ1oEImnWVnljTngoaiCFQRQRZ1rJkFXW5Ovl5HlGLfbeYsaiFLFJWeiTMNTkbHsqJZFIYQ2PVUaAP8c6FnicMUVtY4lw-lOkYlgNT5ub5IqgB7V0.QxYWdSQsoqWhVDxgNmylqg'
+            'Authorization': 'Bearer eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0..-iG26Arov9V7ITMHef6nhg.wLsU7Kiajgv96h8PbVq8d4iiDqb08sqKpK8dIsyiDkvZ8ln13LEzie1rfxw_JpwDACe3qwwshPOOhXHJCw99WxnW_dCu-V7VEBiFRiSAI0lbjF7it-N22A8BsifTDZftv1oOLDNGVHwE53TmX-DJcDlgUSxZZuIK165I97PpujsrJWippMRQT0S6CSiV8-Iu9SZRIyIhRr-OsPSZ36SQwoR440bCpOXLNIQRiur0VWZToxmPuhdyYbSJx_qG749qUS-Va0W0mCKpz3dW3PifVLe1hLrthyP9tfeAzfAnUDa4X3Jf80dTpyLOpbF3BLs3ofFMyJnE4AaB01g43bmwNKaVmlSzq9pe7rUfRI2jWsbZnymOaKcfRWBMPYa8iS5UyEoMEPno4nX3tHSE6SEERCfE4SInZTSJBAnl3CmrFmho6Bsdp9gCnzW3MRtcUd3qbbzJpB6-Scsdwx59c5dxE_g5nCVAAtwKzCD6SsdAS55JAJHpvKFbHi49xFJvl5gB4LShYRltlnMgteZ3dC_om06jDRVakWMBw8QiJA_u1ZmWU5QuFFs1eNOb6xCSaXqnmTkyGfyqJ0I3gqeTEyZW7Q3VQNRVj5RFqhmPyD8THxIv3-56naTu8MOkp0c1tkR9MHVI9a76WfaWelTwdCe2d_k55mmy4UnfpnmjdXyWvRXBdScLFodV-CWxiit2sAifT8-ZL8oFiFpfjXi7SFX69c-G6CPsrVOu9Ojq1XuZuvrxyc9qFIwlTDM165X8MVyx.SG3aCIPL3348c16EQHW7_g'
         },
 
         body: 'select * from vendor where DisplayName = \'' + req.body.name + '\''
@@ -67,30 +72,36 @@ app.get('/vendorname', (req, res) => {
             'User-Agent': '{{UserAgent}}',
             'Accept': 'application/json',
             'Content-Type': 'application/text',
-            'Authorization': 'Bearer eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0..aGbDUW49D1rBbMrKmsOMIg.qx-BoNFzf710PjGErMLv5c1InTJvaThWpR_Jmd5_zLQoswS3OlioKt6gqTCaGrdKdZ-lBLNtu2b2-YuR1GqWl6F6Td34VUDOA6l-dyxAidUkvovlEL2aVA-pKAOCZs-FfyHDk2oSim6jBCt4AeFvlH55aJbFiqCruluULmhfqpoiLZeKF4U-z0WlHEWxEZr-TKwITEphI72y7wPBtvtuhDz_SJBfV3JQU2WjQoJzgLB2fH2wR9RrfEdG8WxRzHqZ6d-ewPmgaWWBGHCn9V5oQMERWuLodAO2z5htsUd6Sy-LaUEyODoNt8qDs4Xs18SbzOBMgiJKI9M9OtzLja-n_TlDeAOBxVHNX5__V_jtbbiluUKfAr6ngnuS1lLblRE7kmgsj-2RgOQBdb4qItt2EaPFIPTeFtob55k3c6OzdswLnOz_sxDEsVJoagtbqylIgW0yjRTEKdrvIPyWghruH0XjSutc1l6dd49oPkpLw20dTU7irIea916p93ETDUhvQfABfUuLy9tUdxQ_L1e6J74ZGk7__-fd5Plogs1wrqBMxnVDEzke-CPUguiSyO7q8sg80Kx_v8NWc3-JZfsUSY7lu6Ox7QLjrppbmP4w8z_126DFKMTBWZDbvhoNLSCayFnH-pU8nKIKYcxTLQZH7QndFYo4zVerG3p-tSMH7YmvJFnuE7Gczr_ZYBd6NfzQPEq4MgXnO8j_Z6TSgMSXVBwrPsWq3FQl4YmUIj4GLU5AKHLFL3OsBsE6yci4e5N_.8e_ii-7LB3Rk0SBT8RN5Mw'
+            'Authorization': 'Bearer eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0..QPDmJZvcPs3mooX0h67m5Q.daiTqsnAiAh6nZMXhwD8Hs7IlEH2UFIA2tGGoxzFsQO8V5dbT49_E2wS4Mvf0Rk-lHv7aqxY40bxBAPLAaHMH_jeLBup6JTLAsax_BGR4Sbq7qK-9pXNilc5gx_mlGvIa1U1hP5Jyr7j62G8dfTQ6gEGFN1FdRYpMKgS9Wi0g1BeQTiFRmM8R7EDRAcLr7W7ARh8LSbnSuu-K-avaH260D5m2c6ycSlJA66JxPzNv9jfTTEa7jW_NFgdavxIma6uAfeXeQBj464Mac5gNMfLq5EPyzxc0tp8HzkPkannR8cV2VnaXNXuEwYYDPJDdUpBCC0kbKLlkmIdIEZiTcuFJz28izcOL4KlRCvECiBL771POrFRAzXj8PG6JO9ex_kLLEJdxWAtqIlFV_blD1RhOukVrVC9OVOei4VRggr4pYyP8uoMTXCw_-IuUW8JDFUF3J5wQHpSLrcX2UHtc0gnoCaOVwt24JVkqM8kM9qWDmxrnQnPxHErbmcYAr1Yzh6q_70DZ9_R26KWF7FM1Pd8Qt8bslzU6TWvkSCWA8jz4mPz6uSUnGdeyEFSj8a8QUvFjhlvRKQlsferwbm6BGXeQNDk8bFLCaWHrCj6LdqhUmMq3S-joLsJ4taMZnpuStnpPop1oONMUFEzmaIo6wN4mc3SETynzw_NI9ezSc-OL1aQQpgwXyZoUUvKyQh9zBws7SMYVGMxgfNBAR8C-WNeqwi6UdNoVVc2qFY1o9n3-KzWot8QLnPpV-tWb_v6lUri.FVC8Wy3iaUedtHOBWH_eIA'
         },
         body: 'select DisplayName from vendor '
 
     };
     request(options, function(error, response) {
-            if (error) throw new Error(error);
-            console.log(response.body);
-            var object = JSON.parse(response.body);
-            console.log(object.QueryResponse.Vendor);
-            var arrayName = new Array();
-            for (let i = 0; i < object.QueryResponse.Vendor.length; i++) {
-                arrayName.push(object.QueryResponse.Vendor[i].DisplayName)
-                    //res.send(object.QueryResponse.Vendor.DisplayName);
-            }
-            let text = '{ "info" : [' +
-                '{ "vendorName":"John" , "vendorId":"Doe" },' +
-                '{ "vendorName":"Anna" , "vendorId":"Smith" },' +
-                '{ "vendorName":"Peter" , "vendorId":"Jones" } ]}';
+        if (error) throw new Error(error);
+        console.log(response.body);
+        var object = JSON.parse(response.body);
+        console.log(object.QueryResponse.Vendor);
+        //console.log(object.QueryResponse);
+        var arrayName = new Array();
+        var data = { vendors: [] } // initially empty
+
+
+        for (let i = 0; i < object.QueryResponse.Vendor.length; i++) {
+            //arrayName.push(object.QueryResponse.Vendor[i].DisplayName
+            //arrayName.push(object.QueryResponse.Vendor[i].ID)
+            //res.send(object.QueryResponse.Vendor.DisplayName);
+            data.vendors.push({
+                displayName: object.QueryResponse.Vendor[i].DisplayName,
+                vendorID: object.QueryResponse.Vendor[i].Id
+            });
         }
 
-        const obj = JSON.parse(text);
 
-        res.send(arrayName) //send new array in place of "object.QueryResponse.Vendor"
+
+
+        // here i think we send text instead of array
+        res.send(data) //send new array in place of "object.QueryResponse.Vendor"
 
     });
 
